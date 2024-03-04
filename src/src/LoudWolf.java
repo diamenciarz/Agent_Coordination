@@ -1,10 +1,20 @@
 import java.util.List;
+import java.util.Random;
 
-public class LoudWolf implements Wolf{
+public class LoudWolf implements Wolf {
+
+    private Random r = new Random();
+    public int howlLoudness;
+
+    public LoudWolf(int visibility) {
+        howlLoudness = r.nextInt(visibility * 3);
+    }
 
     @Override
     public int[] moveAll(List<int[]> wolvesSight, List<int[]> preysSight) {
         return null;
+        // If sees prey, create howl
+
     }
 
     @Override
@@ -12,5 +22,5 @@ public class LoudWolf implements Wolf{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'moveLim'");
     }
-    
+
 }
