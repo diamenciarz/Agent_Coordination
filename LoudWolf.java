@@ -4,7 +4,7 @@ public class LoudWolf implements Wolf{
 
     @Override
     public int[] moveAll(List<int[]> wolvesSight, List<int[]> preysSight) {
-        
+        return null;
     }
 
     @Override
