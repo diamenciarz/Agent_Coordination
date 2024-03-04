@@ -21,7 +21,6 @@ public class LoudWolf implements Wolf {
     public int moveLim(List<int[]> wolvesSight, List<int[]> preysSight) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'moveLim'");
-        return 0;
     }
 
     public int createHowl(List<int[]> preysSight) {
@@ -29,7 +28,10 @@ public class LoudWolf implements Wolf {
     }
 
     public int[] closestHowl(List<int[]> howlsHeard) {
-        Wolv
+        // Exclude own howl
+        // Calculate closest based on number of moves, not actual distance
+        // So if relative distance = (4, -7), total distance = 7 (since can move diagonal)
+        // So max of absolute relative distance
         return int[];
     }
 }
