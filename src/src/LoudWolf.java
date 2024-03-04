@@ -24,20 +24,62 @@ public class LoudWolf implements Wolf {
         throw new UnsupportedOperationException("Unimplemented method 'moveLim'");
     }
 
+    public int[] findClosestPrey(List<int[]> preysSight) {
+        int[] closestDeltaPosition = null;
+        int closestDistance = 1000000;
+
+        for (int[] preyPos : preysSight) {
+            int distanceToPrey = chebyshevDistance(preyPos);
+            if (distanceToPrey < closestDistance) {
+                closestDeltaPosition = preyPos;
+                closestDistance = distanceToPrey;
+            }
+        }
+        return closestDeltaPosition;
+
+
     public boolean createHowl(List<int[]> preysSight, List<Howl> howlsHeard) {
-        // Get strongest howl
-        // if strongest howl has a howlStrength
+        boolean hearHowl = False;
+        boolean seePrey = False;
+
+        Howl strongestHowl = getStrongestHowl(howlsHeard);
+        if(strongestHowl != null) {
+            hearHowl = True;
+        }
+
+        int[] closestPrey = findClosestPrey(preysSight);
+        if(closestPrey != null) {
+            seePrey = True;
+        }
+
+
+        /*
+        - if wolf hears howl and sees prey
+            - howl and go to prey with x chance for y moves
+            - go to howl with 1-x chance for y moves
+
+        - if hears howls
+            - go to loudest howl
+            - if equal, go to first howl in list
+
+        - if wolf sees prey
+            - howl
+            - move towards prey
+         */
+
 
         return null;
     }
 
+
+
     // howlsHeard position will be relative to wolf
-    public int[] getStrongestHowl(List<Howl> howlsHeard) {
+    public Howl getStrongestHowl(List<Howl> howlsHeard) {
         Howl strongestHowl = null;
         int strongestHowlStrength = 0;
         for(i=0; i<howlsHeard.size(); i++) {
             int newHowlStrength = getHowlStrength(howlsHeard.get(i));
-            if (strongestHowl==null || newHowlStrength > strongestHowlStrength) {
+            if (newHowlStrength > strongestHowlStrength) {
                 strongestHowlStrength = newHowlStrength;
                 strongestHowl = howlsHeard.get(i);
             }
