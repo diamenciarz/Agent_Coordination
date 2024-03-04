@@ -1,3 +1,5 @@
+package src;
+
 public class Howl {
     public int[] position;
     public int loudness;
