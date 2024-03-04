@@ -1,3 +1,5 @@
+package src;
+
 public class WolfAction {
     public int[] move;
     public boolean createdHowl;
