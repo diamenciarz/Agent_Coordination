@@ -27,7 +27,10 @@ public class LoudWolf implements Wolf {
         return 0;
     }
 
-    public int[] closestHowl(List<int[]> howlsHeard) {
+    public int[] strongestHowl(List<int[]> howlsHeard) {
+        
+
+
         // Exclude own howl
         // Calculate closest based on number of moves, not actual distance
         // So if relative distance = (4, -7), total distance = 7 (since can move diagonal)
