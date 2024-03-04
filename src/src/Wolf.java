@@ -1,7 +1,7 @@
 import java.util.List;
 
 public interface Wolf {
-	public abstract int[] moveAll(List<int[]> wolvesSight, List<int[]> preysSight, List<Howl> howls);
+	public abstract WolfAction moveAll(List<int[]> wolvesSight, List<int[]> preysSight, List<Howl> howls);
 	// returns an array with 2 elements in {-1,0,1} where the 
 	// first integer indicates the ROW movement, and the second the COL movement
 	// Hence, diagonal movement is possible

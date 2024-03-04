@@ -20,8 +20,8 @@ public class Wolves {
     private WolvesUI visuals;
     private long tickcounter = 0;
 
-    private List<Howl> howls = new ArrayList<>();
-    private List<Howl> newHowls = new ArrayList<>();
+    private static List<Howl> howls = new ArrayList<>();
+    private static List<Howl> newHowls = new ArrayList<>();
 
     public Wolves(int rows, int cols, int numWolves, int numPreys, int visibility, int minCaptured, int min_surround) {
         this.rows = rows;
@@ -119,7 +119,15 @@ public class Wolves {
                 for (int r=0; r<grid.length; r++)
                     for (int s=0; s<grid[0].length; s++)
                         safetyGrid[r][s] = grid[r][s];
-                moves[i] = wolves[i].moveAll(getWolfViewW(i), getWolfViewP(i), howls);
+                
+                // Wolf can move and howl
+                WolfAction wolfAction = wolves[i].moveAll(getWolfViewW(i), getWolfViewP(i), howls);
+                moves[i] = wolfAction.move;
+                
+                // Add howl at the wolf's position
+                // if(wolfAction.createdHowl){
+
+                // }
             }
             howls = newHowls;
             newHowls = new ArrayList<>();
@@ -270,7 +278,4 @@ public class Wolves {
         return preys;
     }
 
-    public void addHowl(int[] pos, int loudness){
-        newHowls.add(new Howl(pos, loudness));
-    }
 }
