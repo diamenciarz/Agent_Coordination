@@ -20,6 +20,8 @@ public class Wolves {
     private WolvesUI visuals;
     private long tickcounter = 0;
 
+    public static List<int[]> howls = new ArrayList<>();
+
     public Wolves(int rows, int cols, int numWolves, int numPreys, int visibility, int minCaptured, int min_surround) {
         this.rows = rows;
         this.cols = cols;
