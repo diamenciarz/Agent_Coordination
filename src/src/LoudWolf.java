@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Random;
+import Howl;
 
 public class LoudWolf implements Wolf {
 
@@ -23,18 +24,36 @@ public class LoudWolf implements Wolf {
         throw new UnsupportedOperationException("Unimplemented method 'moveLim'");
     }
 
-    public int createHowl(List<int[]> preysSight) {
-        return 0;
+    public boolean createHowl(List<int[]> preysSight, List<Howl> howlsHeard) {
+        // Get strongest howl
+        // if strongest howl has a howlStrength
+
+        return null;
     }
 
-    public int[] strongestHowl(List<int[]> howlsHeard) {
-        
+    // howlsHeard position will be relative to wolf
+    public int[] getStrongestHowl(List<Howl> howlsHeard) {
+        Howl strongestHowl = null;
+        int strongestHowlStrength = 0;
+        for(i=0; i<howlsHeard.size(); i++) {
+            int newHowlStrength = getHowlStrength(howlsHeard.get(i));
+            if (strongestHowl==null || newHowlStrength > strongestHowlStrength) {
+                strongestHowlStrength = newHowlStrength;
+                strongestHowl = howlsHeard.get(i);
+            }
+        }
+        return strongestHowl;
+    }
 
-
-        // Exclude own howl
-        // Calculate closest based on number of moves, not actual distance
-        // So if relative distance = (4, -7), total distance = 7 (since can move diagonal)
-        // So max of absolute relative distance
-        return new int[0];
+    public int getHowlStrength(Howl howlHeard) {
+        coordDist = howlHeard.getPosition();
+        xDist = abs(coordDist[0]);
+        yDist = abs(coordDist[1]);
+        dist = max(xDist, yDist);
+        strength = howlHeard.getLoudness() - dist;
+        if(strength < 0) {
+            strength = 0;
+        }
+        return strength;
     }
 }
