@@ -10,15 +10,13 @@ public class LoudWolf implements Wolf {
     }
 
     private Random r = new Random();
-    private int howlLoudness;
     private Behavior behavior = Behavior.MOVE_RANDOMLY;
     /**
      * Keeps previous behavior for a few turns
      */
     private int keepPreviousBehavior = 0;
 
-    public LoudWolf(int visibility) {
-        howlLoudness = r.nextInt(visibility * 3);
+    public LoudWolf() {
     }
 
     @Override
@@ -108,5 +106,38 @@ public class LoudWolf implements Wolf {
         // diagonal)
         // So max of absolute relative distance
         return new int[0];
+    }
+
+    public boolean createHowl(List<int[]> preysSight, List<Howl> howlsHeard) {
+        // Get strongest howl
+        // if strongest howl has a howlStrength
+
+        return false;
+    }
+
+    // howlsHeard position will be relative to wolf
+    public Howl getStrongestHowl(List<Howl> howlsHeard) {
+        Howl strongestHowl = null;
+        int strongestHowlStrength = 0;
+        for(int i=0; i<howlsHeard.size(); i++) {
+            int newHowlStrength = getHowlStrength(howlsHeard.get(i));
+            if (newHowlStrength > strongestHowlStrength) {
+                strongestHowlStrength = newHowlStrength;
+                strongestHowl = howlsHeard.get(i);
+            }
+        }
+        return strongestHowl;
+    }
+
+    public int getHowlStrength(Howl howlHeard) {
+        int[] coordDist = howlHeard.getPosition();
+        int xDist = Math.abs(coordDist[0]);
+        int yDist = Math.abs(coordDist[1]);
+        int dist = Math.max(xDist, yDist);
+        int strength = howlHeard.getLoudness() - dist;
+        if(strength < 0) {
+            strength = 0;
+        }
+        return strength;
     }
 }

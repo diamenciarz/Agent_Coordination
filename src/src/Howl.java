@@ -6,4 +6,13 @@ public class Howl {
         position = newPos;
         loudness = newLoudness;
     }
+
+    public int[] getPosition() {
+        return position;
+    }
+
+    public in[] getLoudness() {
+        return loudness;
+    }
+
 }
