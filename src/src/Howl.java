@@ -11,7 +11,7 @@ public class Howl {
         return position;
     }
 
-    public in[] getLoudness() {
+    public int getLoudness() {
         return loudness;
     }
 

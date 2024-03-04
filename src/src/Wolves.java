@@ -15,6 +15,7 @@ public class Wolves {
     private int[] preyRow = new int[numPreys];
     private int[] preyCol = new int[numPreys];
     private Wolf[] wolves = new Wolf[numWolves];
+    private int[] howlLoudness = new int[numWolves];
     private List<Integer> capturedList = new ArrayList<>();
     private Random r = new Random();
     private WolvesUI visuals;
@@ -45,6 +46,8 @@ public class Wolves {
                 wolfCol[i] = r.nextInt(cols);
             } while (!empty(wolfRow[i], wolfCol[i]));
             grid[wolfRow[i]][wolfCol[i]] = i * 2 + 1;
+
+            howlLoudness[i] = r.nextInt(visibility*3);
         }
         for (int i = 0; i < numPreys; i++) {
 
@@ -59,21 +62,21 @@ public class Wolves {
             preyCol[i] = preyC;
             grid[preyR][preyC] = i * 2 + 2;
         }
-        initWolves(visibility);
+        initWolves();
     }
 
     private boolean empty(int row, int col) {
         return (grid[row][col] == 0);
     }
 
-    private void initWolves(int visibility) {
+    private void initWolves() {
         // You should put your own wolves in the array here!!
         Wolf[] wolvesPool = new Wolf[5];
-        wolvesPool[0] = new LoudWolf(visibility);
-        wolvesPool[1] = new LoudWolf(visibility);
-        wolvesPool[2] = new LoudWolf(visibility);
-        wolvesPool[3] = new LoudWolf(visibility);
-        wolvesPool[4] = new LoudWolf(visibility);
+        wolvesPool[0] = new LoudWolf();
+        wolvesPool[1] = new LoudWolf();
+        wolvesPool[2] = new LoudWolf();
+        wolvesPool[3] = new LoudWolf();
+        wolvesPool[4] = new LoudWolf();
 
         // Below code will select three random wolves from the pool.
         // Make the pool as large as you want, but not < numWolves
