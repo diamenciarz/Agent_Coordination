@@ -88,11 +88,11 @@ public class LoudWolf implements Wolf {
     }
 
     public int getHowlStrength(Howl howlHeard) {
-        coordDist = howlHeard.getPosition();
-        xDist = abs(coordDist[0]);
-        yDist = abs(coordDist[1]);
-        dist = max(xDist, yDist);
-        strength = howlHeard.getLoudness() - dist;
+        int[] coordDist = howlHeard.getPosition();
+        int xDist = abs(coordDist[0]);
+        int yDist = abs(coordDist[1]);
+        int dist = max(xDist, yDist);
+        int strength = howlHeard.getLoudness() - dist;
         if(strength < 0) {
             strength = 0;
         }
