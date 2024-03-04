@@ -109,11 +109,39 @@ public class LoudWolf implements Wolf {
     }
 
     public boolean createHowl(List<int[]> preysSight, List<Howl> howlsHeard) {
-        // Get strongest howl
-        // if strongest howl has a howlStrength
+        boolean hearHowl = false;
+        boolean seePrey = false;
+
+        Howl strongestHowl = getStrongestHowl(howlsHeard);
+        if(strongestHowl != null) {
+            hearHowl = true;
+        }
+
+        int[] closestPrey = findClosestPrey(preysSight);
+        if(closestPrey != null) {
+            seePrey = true;
+        }
+
+
+        /*
+        - if wolf hears howl and sees prey
+            - howl and go to prey with x chance for y moves
+            - go to howl with 1-x chance for y moves
+
+        - if hears howls
+            - go to loudest howl
+            - if equal, go to first howl in list
+
+        - if wolf sees prey
+            - howl
+            - move towards prey
+         */
+
 
         return false;
     }
+
+
 
     // howlsHeard position will be relative to wolf
     public Howl getStrongestHowl(List<Howl> howlsHeard) {
