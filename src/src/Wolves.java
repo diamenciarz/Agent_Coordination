@@ -58,21 +58,21 @@ public class Wolves {
             preyCol[i] = preyC;
             grid[preyR][preyC] = i * 2 + 2;
         }
-        initWolves();
+        initWolves(visibility);
     }
 
     private boolean empty(int row, int col) {
         return (grid[row][col] == 0);
     }
 
-    private void initWolves() {
+    private void initWolves(int visibility) {
         // You should put your own wolves in the array here!!
         Wolf[] wolvesPool = new Wolf[5];
-        wolvesPool[0] = new RandomWolf();
-        wolvesPool[1] = new RandomWolf();
-        wolvesPool[2] = new RandomWolf();
-        wolvesPool[3] = new RandomWolf();
-        wolvesPool[4] = new RandomWolf();
+        wolvesPool[0] = new LoudWolf(visibility);
+        wolvesPool[1] = new LoudWolf(visibility);
+        wolvesPool[2] = new LoudWolf(visibility);
+        wolvesPool[3] = new LoudWolf(visibility);
+        wolvesPool[4] = new LoudWolf(visibility);
 
         // Below code will select three random wolves from the pool.
         // Make the pool as large as you want, but not < numWolves
