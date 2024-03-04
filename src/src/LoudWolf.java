@@ -11,7 +11,7 @@ public class LoudWolf implements Wolf {
     }
 
     @Override
-    public int[] moveAll(List<int[]> wolvesSight, List<int[]> preysSight) {
+    public int[] moveAll(List<int[]> wolvesSight, List<int[]> preysSight, List<Howl> howls) {
         return null;
         // If sees prey, create howl
 

@@ -6,7 +6,7 @@ import java.util.Random;
 public class RandomWolf implements Wolf {
 
 	@Override
-	public int[] moveAll(List<int[]> wolvesSight, List<int[]> preysSight) {
+	public int[] moveAll(List<int[]> wolvesSight, List<int[]> preysSight, List<Howl> howls) {
 		System.out.println();
 		Random r = new Random();
 		int[] mymove = new int[2];
