@@ -15,9 +15,10 @@ public class LoudWolf implements Wolf {
      * Keeps previous behavior for a few turns
      */
     private int keepPreviousBehavior = 0;
+    private double followPreyChance;
 
-    public LoudWolf(double followPreyChance) {
-        
+    public LoudWolf(double initialFollowPreyChance) {
+        followPreyChance = initialFollowPreyChance;
     }
 
     @Override
