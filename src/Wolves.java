@@ -74,7 +74,7 @@ public class Wolves {
     private void initWolves() {
         // You should put your own wolves in the array here!!
         Wolf[] wolvesPool = new Wolf[5];
-        double followPreyChance = 0.5;
+        double followPreyChance = 0;
         wolvesPool[0] = new LoudWolf(followPreyChance);
         wolvesPool[1] = new LoudWolf(followPreyChance);
         wolvesPool[2] = new LoudWolf(followPreyChance);
@@ -199,8 +199,6 @@ public class Wolves {
                 continue;
             if (captured(preyX[i], preyY[i])) {
                 capturedList.add(i);
-                preyX[i] = 0;
-                preyY[i] = 0;
             }
         }
 
