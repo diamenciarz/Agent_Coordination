@@ -72,11 +72,12 @@ public class Wolves {
     private void initWolves() {
         // You should put your own wolves in the array here!!
         Wolf[] wolvesPool = new Wolf[5];
-        wolvesPool[0] = new LoudWolf();
-        wolvesPool[1] = new LoudWolf();
-        wolvesPool[2] = new LoudWolf();
-        wolvesPool[3] = new LoudWolf();
-        wolvesPool[4] = new LoudWolf();
+        double followPreyChance = 0.5;
+        wolvesPool[0] = new LoudWolf(followPreyChance);
+        wolvesPool[1] = new LoudWolf(followPreyChance);
+        wolvesPool[2] = new LoudWolf(followPreyChance);
+        wolvesPool[3] = new LoudWolf(followPreyChance);
+        wolvesPool[4] = new LoudWolf(followPreyChance);
 
         // Below code will select three random wolves from the pool.
         // Make the pool as large as you want, but not < numWolves

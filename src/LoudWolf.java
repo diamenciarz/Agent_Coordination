@@ -15,9 +15,10 @@ public class LoudWolf implements Wolf {
      * Keeps previous behavior for a few turns
      */
     private int keepPreviousBehavior = 0;
+    private double followPreyChance;
 
     public LoudWolf(double followPreyChance) {
-        
+        this.followPreyChance = followPreyChance;
     }
 
     @Override
@@ -78,7 +79,7 @@ public class LoudWolf implements Wolf {
             if (seesPrey) {
                 if (hearsHowl) {
                     // If sees prey and hears howl, can decide to follow either
-                    if (r.nextInt(100) > 50) {
+                    if (r.nextDouble(1) < followPreyChance) {
                         keepPreviousBehavior = 5;
                         return Behavior.FOLLOW_HOWL;
                     } else {
