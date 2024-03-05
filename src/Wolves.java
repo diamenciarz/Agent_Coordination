@@ -15,7 +15,7 @@ public class Wolves {
     private int[] preyRow = new int[numPreys];
     private int[] preyCol = new int[numPreys];
     private Wolf[] wolves = new Wolf[numWolves];
-    private int[] howlLoudness = new int[numWolves];
+    private int[] howlLoudness;
     private List<Integer> capturedList = new ArrayList<>();
     private Random r = new Random();
     private WolvesUI visuals;
@@ -33,6 +33,7 @@ public class Wolves {
         this.minCaptured = minCaptured;
         this.min_surround = min_surround;
         grid = new int[rows][cols];
+        howlLoudness = new int[numWolves];
 
         wolfRow = new int[numWolves];
         wolfCol = new int[numWolves];
