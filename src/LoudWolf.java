@@ -99,49 +99,14 @@ public class LoudWolf implements Wolf {
         return Math.max(deltaPos[0], deltaPos[1]);
     }
 
-    public int[] closestHowl(List<int[]> howlsHeard) {
-        // Exclude own howl
-        // Calculate closest based on number of moves, not actual distance
-        // So if relative distance = (4, -7), total distance = 7 (since can move
-        // diagonal)
-        // So max of absolute relative distance
-        return new int[0];
-    }
-
     public boolean createHowl(List<int[]> preysSight, List<Howl> howlsHeard) {
-        boolean hearHowl = false;
-        boolean seePrey = false;
-
-        Howl strongestHowl = getStrongestHowl(howlsHeard);
-        if(strongestHowl != null) {
-            hearHowl = true;
+        if(behavior == Behavior.FOLLOW_PREY) {
+            return true;
         }
-
-        int[] closestPrey = findClosestPrey(preysSight);
-        if(closestPrey != null) {
-            seePrey = true;
+        else {
+            return false;
         }
-
-
-        /*
-        - if wolf hears howl and sees prey
-            - howl and go to prey with x chance for y moves
-            - go to howl with 1-x chance for y moves
-
-        - if hears howls
-            - go to loudest howl
-            - if equal, go to first howl in list
-
-        - if wolf sees prey
-            - howl
-            - move towards prey
-         */
-
-
-        return false;
     }
-
-
 
     // howlsHeard position will be relative to wolf
     public Howl getStrongestHowl(List<Howl> howlsHeard) {
