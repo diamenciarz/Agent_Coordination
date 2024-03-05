@@ -15,4 +15,9 @@ public class Howl {
         return loudness;
     }
 
+    @Override
+    public String toString(){
+        return String.format("Howl(%d,%d):%d", position[0], position[1], loudness);
+    }
+
 }
