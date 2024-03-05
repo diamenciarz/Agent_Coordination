@@ -49,7 +49,7 @@ public class Wolves {
             } while (!empty(wolfRow[i], wolfCol[i]));
             grid[wolfRow[i]][wolfCol[i]] = i * 2 + 1;
 
-            howlLoudness[i] = r.nextInt(visibility*3);
+            howlLoudness[i] = r.nextInt(10,21);
         }
         for (int i = 0; i < numPreys; i++) {
 

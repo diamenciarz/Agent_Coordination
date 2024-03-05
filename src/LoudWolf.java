@@ -77,13 +77,13 @@ public class LoudWolf implements Wolf {
     private Behavior selectBehavior(boolean seesPrey, boolean hearsHowl) {
         // If was following 
         if (behavior==Behavior.FOLLOW_HOWL && !hearsHowl) {
-            keepPreviousBehavior = 0;
+            keepPreviousBehavior = 1;
         }
         if (behavior==Behavior.FOLLOW_PREY && !seesPrey) {
-            keepPreviousBehavior = 0;
+            keepPreviousBehavior = 1;
         }
         // If it is still executing previous behavior, do not modify anything
-        if (keepPreviousBehavior == 0) {
+        if (keepPreviousBehavior <= 0) {
             if (seesPrey) {
                 if (hearsHowl) {
                     // If sees prey and hears howl, can decide to follow either
