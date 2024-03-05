@@ -7,3 +7,4 @@ public class WolfAction {
         this.createdHowl = createdHowl;
     }
 }
+
