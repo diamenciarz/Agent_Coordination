@@ -17,8 +17,8 @@ public class LoudWolf implements Wolf {
     private int keepPreviousBehavior = 0;
     private double followPreyChance;
 
-    public LoudWolf(double followPreyChance) {
-        this.followPreyChance = followPreyChance;
+    public LoudWolf(double initialFollowPreyChance) {
+        followPreyChance = initialFollowPreyChance;
     }
 
     @Override
