@@ -209,8 +209,8 @@ public class Wolves {
     private List<Howl> makeRelativeHowls(int[] wolfPosition, List<Howl> howls){
         List<Howl> relativeHowls = new ArrayList<>();
         for (Howl howl : howls) {
-            int deltaX = howl.getPosition()[0]-wolfPosition[0];
-            int deltaY = howl.getPosition()[1]-wolfPosition[1];
+            int deltaX = wolfPosition[0] - howl.getPosition()[0];
+            int deltaY = wolfPosition[1] - howl.getPosition()[1];
             int[] relativePosition = new int[]{deltaX, deltaY};
             relativeHowls.add(new Howl(relativePosition, howl.getLoudness()));
         }
