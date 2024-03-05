@@ -21,23 +21,52 @@ public class LoudWolf implements Wolf {
 
     @Override
     public WolfAction moveAll(List<int[]> wolvesSight, List<int[]> preysSight, List<Howl> howls) {
-        // By default, moves randomly
-        boolean createdHowl = false;
-
         int[] closestPreyPos = findClosestPrey(preysSight);
         boolean seesPrey = closestPreyPos != null;
-        boolean hearsHowl = false; // To do
-        // If sees prey, create howl
-        if (seesPrey) {
-            createdHowl = true;
-        }
+
+        Howl closestHowl = getStrongestHowl(howls);
+        boolean hearsHowl = closestHowl != null;
 
         behavior = selectBehavior(seesPrey, hearsHowl);
         keepPreviousBehavior--;
-        // Act on the selected behavior
 
-        int[] myMove = makeMovement(wolvesSight, preysSight);
-        return new WolfAction(myMove, createdHowl);
+        boolean createHowl = behavior == Behavior.FOLLOW_PREY;
+        int[] myMove = null;
+        if(behavior == Behavior.FOLLOW_PREY) {
+            myMove = moveToCoordinates(closestPreyPos);
+        }
+        else if(behavior == Behavior.FOLLOW_HOWL) {
+            myMove = moveToCoordinates(closestHowl.getPosition());
+        }
+        else if(behavior == Behavior.MOVE_RANDOMLY) {
+            myMove = moveRandom();
+        }
+
+        return new WolfAction(myMove, createHowl);
+    }
+
+    private int[] moveToCoordinates(int[] coordinates) {
+        int[] myMove = {0, 0};
+        if(coordinates[0] < 0){
+            myMove[0] = -1;
+        } else if(coordinates[0] > 0) {
+            myMove[0] = 1;
+        }
+        if(coordinates[1] < 0){
+            myMove[1] = -1;
+        } else if(coordinates[1] > 0) {
+            myMove[1] = 1;
+        }
+        return myMove;
+    }
+
+    public int[] moveRandom() {
+        Random r = new Random();
+        int[] myMove = new int[2];
+        // Random value from -1 to 1
+        myMove[0] = r.nextInt(3)-1;
+        myMove[1] = r.nextInt(3)-1;
+        return myMove;
     }
 
     private Behavior selectBehavior(boolean seesPrey, boolean hearsHowl) {
@@ -74,10 +103,6 @@ public class LoudWolf implements Wolf {
         return behavior;
     }
 
-    private int[] makeMovement(List<int[]> wolvesSight, List<int[]> preysSight){
-        return null;
-    }
-
     @Override
     public int moveLim(List<int[]> wolvesSight, List<int[]> preysSight) {
         return 0;
@@ -99,15 +124,6 @@ public class LoudWolf implements Wolf {
 
     private int chebyshevDistance(int[] deltaPos) {
         return Math.max(deltaPos[0], deltaPos[1]);
-    }
-
-    public boolean createHowl(List<int[]> preysSight, List<Howl> howlsHeard) {
-        if(behavior == Behavior.FOLLOW_PREY) {
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 
     // howlsHeard position will be relative to wolf
