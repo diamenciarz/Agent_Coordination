@@ -10,10 +10,10 @@ public class Wolves {
     private int min_surround;
     public int[][] grid;
     private int rows, cols;
-    private int[] wolfRow = new int[numWolves];
-    private int[] wolfCol = new int[numWolves];
-    private int[] preyRow = new int[numPreys];
-    private int[] preyCol = new int[numPreys];
+    private int[] wolfX = new int[numWolves];
+    private int[] wolfY = new int[numWolves];
+    private int[] preyX = new int[numPreys];
+    private int[] preyY = new int[numPreys];
     private Wolf[] wolves = new Wolf[numWolves];
     private int[] howlLoudness;
     private List<Integer> capturedList = new ArrayList<>();
@@ -35,19 +35,19 @@ public class Wolves {
         grid = new int[rows][cols];
         howlLoudness = new int[numWolves];
 
-        wolfRow = new int[numWolves];
-        wolfCol = new int[numWolves];
-        preyRow = new int[numPreys];
-        preyCol = new int[numPreys];
+        wolfX = new int[numWolves];
+        wolfY = new int[numWolves];
+        preyX = new int[numPreys];
+        preyY = new int[numPreys];
         wolves = new Wolf[numWolves];
         howlLoudness = new int[numWolves];
 
         for (int i = 0; i < numWolves; i++) {
             do {
-                wolfRow[i] = r.nextInt(rows);
-                wolfCol[i] = r.nextInt(cols);
-            } while (!empty(wolfRow[i], wolfCol[i]));
-            grid[wolfRow[i]][wolfCol[i]] = i * 2 + 1;
+                wolfX[i] = r.nextInt(rows);
+                wolfY[i] = r.nextInt(cols);
+            } while (!empty(wolfX[i], wolfY[i]));
+            grid[wolfX[i]][wolfY[i]] = i * 2 + 1;
 
             howlLoudness[i] = r.nextInt(10,21);
         }
@@ -60,8 +60,8 @@ public class Wolves {
                 preyC = r.nextInt(cols);
             } while (!empty(preyR, preyC)
                     || captured(preyR, preyC));
-            preyRow[i] = preyR;
-            preyCol[i] = preyC;
+            preyX[i] = preyR;
+            preyY[i] = preyC;
             grid[preyR][preyC] = i * 2 + 2;
         }
         initWolves();
@@ -105,12 +105,12 @@ public class Wolves {
                 rowMove = r.nextInt(3) - 1;
                 colMove = r.nextInt(3) - 1;
                 cntr++;
-            } while (!empty(rowWrap(preyRow[i], rowMove), colWrap(preyCol[i], colMove))
-                    || (cntr < 100 && captured(rowWrap(preyRow[i], rowMove), colWrap(preyCol[i], colMove))));
-            grid[preyRow[i]][preyCol[i]] = 0;
-            preyRow[i] = rowWrap(preyRow[i], rowMove);
-            preyCol[i] = colWrap(preyCol[i], colMove);
-            grid[preyRow[i]][preyCol[i]] = i * 2 + 2;
+            } while (!empty(rowWrap(preyX[i], rowMove), colWrap(preyY[i], colMove))
+                    || (cntr < 100 && captured(rowWrap(preyX[i], rowMove), colWrap(preyY[i], colMove))));
+            grid[preyX[i]][preyY[i]] = 0;
+            preyX[i] = rowWrap(preyX[i], rowMove);
+            preyY[i] = colWrap(preyY[i], colMove);
+            grid[preyX[i]][preyY[i]] = i * 2 + 2;
 
         }
 
@@ -127,7 +127,7 @@ public class Wolves {
                         safetyGrid[r][s] = grid[r][s];
                 
                 // Wolf can move and howl
-                int[] wolfPosition = new int[]{wolfRow[i], wolfCol[i]};
+                int[] wolfPosition = new int[]{wolfX[i], wolfY[i]};
                 WolfAction wolfAction = wolves[i].moveAll(getWolfViewW(i), getWolfViewP(i), makeRelativeHowls(wolfPosition, howls));
                 moves[i] = wolfAction.move;
                 
@@ -180,11 +180,11 @@ public class Wolves {
 
         // and here we move everybody
         for (int i = 0; i < numWolves; i++) {
-            if (empty(rowWrap(wolfRow[i], moves[i][0]), colWrap(wolfCol[i], moves[i][1]))) {
-                grid[wolfRow[i]][wolfCol[i]] = 0;
-                wolfRow[i] = rowWrap(wolfRow[i], moves[i][0]);
-                wolfCol[i] = colWrap(wolfCol[i], moves[i][1]);
-                grid[wolfRow[i]][wolfCol[i]] = i * 2 + 1;
+            if (empty(rowWrap(wolfX[i], moves[i][0]), colWrap(wolfY[i], moves[i][1]))) {
+                grid[wolfX[i]][wolfY[i]] = 0;
+                wolfX[i] = rowWrap(wolfX[i], moves[i][0]);
+                wolfY[i] = colWrap(wolfY[i], moves[i][1]);
+                grid[wolfX[i]][wolfY[i]] = i * 2 + 1;
             }
         }
 
@@ -194,7 +194,7 @@ public class Wolves {
         for (int i = 0; i < numPreys; i++) { //add new captured to list
             if (capturedList.contains(i))
                 continue;
-            if (captured(preyRow[i], preyCol[i]))
+            if (captured(preyX[i], preyY[i]))
                 capturedList.add(i);
         }
 
@@ -271,8 +271,8 @@ public class Wolves {
     public List<int[]> getWolfViewW(int wolf) {
         List<int[]> wolves = new ArrayList<>();
         for (int i = 0; i < numWolves; i++) {
-            int relX = wolfRow[wolf] - wolfRow[i];
-            int relY = wolfCol[wolf] - wolfCol[i];
+            int relX = wolfX[wolf] - wolfX[i];
+            int relY = wolfY[wolf] - wolfY[i];
 
             int[] agent = new int[]{relX, relY};
             wolves.add(agent);
@@ -284,12 +284,12 @@ public class Wolves {
     public List<int[]> getWolfViewP(int wolf) {
         List<int[]> preys = new ArrayList<>();
         for (int i = 0; i < numPreys; i++) {
-            if (manhattanDistance(wolfRow[wolf], wolfCol[wolf], preyRow[i], preyCol[i]) > visibility) {
+            if (manhattanDistance(wolfX[wolf], wolfY[wolf], preyX[i], preyY[i]) > visibility) {
                 continue;
             }
 
-            int relX = wolfRow[wolf] - preyRow[i];
-            int relY = wolfCol[wolf] - preyCol[i];
+            int relX = wolfX[wolf] - preyX[i];
+            int relY = wolfY[wolf] - preyY[i];
             int[] agent = new int[]{relX, relY};
             preys.add(agent);
         }

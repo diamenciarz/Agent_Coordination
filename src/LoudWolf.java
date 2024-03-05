@@ -25,6 +25,9 @@ public class LoudWolf implements Wolf {
     public WolfAction moveAll(List<int[]> wolvesSight, List<int[]> preysSight, List<Howl> howls) {
         int[] closestPreyPos = findClosestPrey(preysSight);
         boolean seesPrey = closestPreyPos != null;
+        if (seesPrey) {
+            System.out.println(String.format("Sees prey at (%d,%d)", closestPreyPos[0], closestPreyPos[1]));
+        }
 
         Howl closestHowl = getStrongestHowl(howls);
         boolean hearsHowl = closestHowl != null;
