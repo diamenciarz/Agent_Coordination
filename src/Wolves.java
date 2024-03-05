@@ -133,7 +133,8 @@ public class Wolves {
                 
                 // Add howl at the wolf's position
                 if(wolfAction.createdHowl){
-                    newHowls.add(new Howl(wolfPosition, howlLoudness[i]));
+                    int[] howlPosition = {wolfPosition[0] + wolfAction.relativeHowlPosition[0], wolfPosition[1] + wolfAction.relativeHowlPosition[1]};
+                    newHowls.add(new Howl(howlPosition, howlLoudness[i]));
                 }
             }
             howls = newHowls;

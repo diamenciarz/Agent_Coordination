@@ -11,7 +11,7 @@ public class RandomWolf implements Wolf {
 		// Random value from -1 to 1
 		mymove[0] = r.nextInt(3)-1;
 		mymove[1] = r.nextInt(3)-1;
-		return new WolfAction(mymove, false);
+		return new WolfAction(mymove, false, null);
 	}
 	
 	public int moveLim(List<int[]> wolvesSight, List<int[]> preysSight) {
