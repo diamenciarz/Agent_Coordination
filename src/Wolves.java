@@ -14,6 +14,7 @@ public class Wolves {
     private int[] wolfY = new int[numWolves];
     private int[] preyX = new int[numPreys];
     private int[] preyY = new int[numPreys];
+    private boolean[] preyCap = new boolean[numPreys];
     private Wolf[] wolves = new Wolf[numWolves];
     private int[] howlLoudness;
     private List<Integer> capturedList = new ArrayList<>();
@@ -39,6 +40,7 @@ public class Wolves {
         wolfY = new int[numWolves];
         preyX = new int[numPreys];
         preyY = new int[numPreys];
+        preyCap = new boolean[numPreys];
         wolves = new Wolf[numWolves];
         howlLoudness = new int[numWolves];
 
@@ -63,6 +65,7 @@ public class Wolves {
             preyX[i] = preyR;
             preyY[i] = preyC;
             grid[preyR][preyC] = i * 2 + 2;
+            preyCap[i] = false;
         }
         initWolves();
     }
@@ -100,6 +103,9 @@ public class Wolves {
 
         int cntr = 0;
         for (int i = 0; i < numPreys; i++) {
+            if(preyCap[i]) {
+                continue;
+            }
             int rowMove, colMove;
             do {
                 rowMove = r.nextInt(3) - 1;
@@ -199,6 +205,8 @@ public class Wolves {
                 continue;
             if (captured(preyX[i], preyY[i])) {
                 capturedList.add(i);
+                preyCap[i] = true;
+                grid[preyX[i]][preyY[i]] = 0;
             }
         }
 
@@ -301,6 +309,9 @@ public class Wolves {
         List<int[]> preys = new ArrayList<>();
         for (int i = 0; i < numPreys; i++) {
             if (manhattanDistance(wolfX[wolf], wolfY[wolf], preyX[i], preyY[i]) > visibility) {
+                continue;
+            }
+            if (preyCap[i]) {
                 continue;
             }
             int relX = preyX[i] - wolfX[wolf];
