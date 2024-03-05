@@ -51,6 +51,10 @@ public class LoudWolf implements Wolf {
     }
 
     private int[] moveToCoordinates(int[] coordinates) {
+        if(coordinates == null) {
+            return moveRandom();
+        }
+        
         int[] myMove = {0, 0};
         if(coordinates[0] < 0){
             myMove[0] = -1;
