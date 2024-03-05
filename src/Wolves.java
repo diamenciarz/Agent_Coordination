@@ -25,7 +25,7 @@ public class Wolves {
     private static List<Howl> howls = new ArrayList<>();
     private static List<Howl> newHowls = new ArrayList<>();
 
-    public Wolves(int rows, int cols, int numWolves, int numPreys, int visibility, int minCaptured, int min_surround) {
+    public Wolves(int rows, int cols, int numWolves, int numPreys, int visibility, int minCaptured, int min_surround, int defaultLoudness) {
         this.rows = rows;
         this.cols = cols;
         this.numWolves = numWolves;
@@ -51,7 +51,7 @@ public class Wolves {
             } while (!empty(wolfX[i], wolfY[i]));
             grid[wolfX[i]][wolfY[i]] = i * 2 + 1;
 
-            howlLoudness[i] = r.nextInt(10, 21);
+            howlLoudness[i] = r.nextInt(defaultLoudness-5, defaultLoudness+5);
         }
         for (int i = 0; i < numPreys; i++) {
 

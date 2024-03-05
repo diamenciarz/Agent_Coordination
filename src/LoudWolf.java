@@ -95,10 +95,10 @@ public class LoudWolf implements Wolf {
                     // If sees prey and hears howl, can decide to follow either
                     if (r.nextDouble(1) < followPreyChance) {
                         keepPreviousBehavior = 10;
-                        return Behavior.FOLLOW_HOWL;
+                        return Behavior.FOLLOW_PREY;
                     } else {
                         keepPreviousBehavior = 10;
-                        return Behavior.FOLLOW_PREY;
+                        return Behavior.FOLLOW_HOWL;
                     }
                 } else {
                     // If only sees prey but doesn't hear any howls, follow prey and keep howling as

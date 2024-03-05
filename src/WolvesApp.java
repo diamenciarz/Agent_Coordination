@@ -29,7 +29,7 @@ public class WolvesApp extends JFrame {
 		setLocation(left, top);
 
 		//Wolves(numbrows, numbcols, numbWolves, numbPrey, visibilityRangePrey, minCapturedToEndGame(leave at 1), numberOfWolvesNeededToCaptureAPrey)
-		game = new Wolves(numbrows, numbcols,3,10,10,3, 2);
+		game = new Wolves(numbrows, numbcols,3,10,10,3, 2, 10);
 		
 		WolvesUI panel = new WolvesUI(game,squaresize);
 		add(panel, BorderLayout.CENTER);
