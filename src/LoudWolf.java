@@ -41,6 +41,8 @@ public class LoudWolf implements Wolf {
     }
 
     private Behavior selectBehavior(boolean seesPrey, boolean hearsHowl) {
+        // If was following 
+
         // If it is still executing previous behavior, do not modify anything
         if (keepPreviousBehavior == 0) {
             if (seesPrey) {
@@ -78,8 +80,7 @@ public class LoudWolf implements Wolf {
 
     @Override
     public int moveLim(List<int[]> wolvesSight, List<int[]> preysSight) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'moveLim'");
+        return 0;
     }
 
     public int[] findClosestPrey(List<int[]> preysSight) {

@@ -124,13 +124,14 @@ public class Wolves {
                         safetyGrid[r][s] = grid[r][s];
                 
                 // Wolf can move and howl
-                WolfAction wolfAction = wolves[i].moveAll(getWolfViewW(i), getWolfViewP(i), howls);
+                int[] wolfPosition = new int[]{wolfRow[i], wolfCol[i]};
+                WolfAction wolfAction = wolves[i].moveAll(getWolfViewW(i), getWolfViewP(i), makeRelativeHowls(wolfPosition, howls));
                 moves[i] = wolfAction.move;
                 
                 // Add howl at the wolf's position
-                // if(wolfAction.createdHowl){
-
-                // }
+                if(wolfAction.createdHowl){
+                    newHowls.add(new Howl(wolfPosition, howlLoudness[i]));
+                }
             }
             howls = newHowls;
             newHowls = new ArrayList<>();
@@ -199,6 +200,17 @@ public class Wolves {
             System.out.println("Winners");
             System.exit(0);
         }
+    }
+
+    private List<Howl> makeRelativeHowls(int[] wolfPosition, List<Howl> howls){
+        List<Howl> relativeHowls = new ArrayList<>();
+        for (Howl howl : howls) {
+            int deltaX = howl.getPosition()[0]-wolfPosition[0];
+            int deltaY = howl.getPosition()[1]-wolfPosition[1];
+            int[] relativePosition = new int[]{deltaX, deltaY};
+            relativeHowls.add(new Howl(relativePosition, howl.getLoudness()));
+        }
+        return relativeHowls;
     }
 
     public boolean captured(int r, int c) {
