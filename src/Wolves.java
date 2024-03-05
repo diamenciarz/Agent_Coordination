@@ -209,8 +209,8 @@ public class Wolves {
     private List<Howl> makeRelativeHowls(int[] wolfPosition, List<Howl> howls){
         List<Howl> relativeHowls = new ArrayList<>();
         for (Howl howl : howls) {
-            int deltaX = wolfPosition[0]-howl.getPosition()[0];
-            int deltaY = wolfPosition[1]-howl.getPosition()[1];
+            int deltaX = howl.getPosition()[0] - wolfPosition[0];
+            int deltaY = howl.getPosition()[1] - wolfPosition[1];
             int[] relativePosition = new int[]{deltaX, deltaY};
             relativeHowls.add(new Howl(relativePosition, howl.getLoudness()));
         }
@@ -271,8 +271,8 @@ public class Wolves {
     public List<int[]> getWolfViewW(int wolf) {
         List<int[]> wolves = new ArrayList<>();
         for (int i = 0; i < numWolves; i++) {
-            int relX = wolfX[wolf] - wolfX[i];
-            int relY = wolfY[wolf] - wolfY[i];
+            int relX = wolfX[i] - wolfX[wolf];
+            int relY = wolfY[i] - wolfY[wolf];
 
             int[] agent = new int[]{relX, relY};
             wolves.add(agent);
@@ -287,9 +287,8 @@ public class Wolves {
             if (manhattanDistance(wolfX[wolf], wolfY[wolf], preyX[i], preyY[i]) > visibility) {
                 continue;
             }
-
-            int relX = wolfX[wolf] - preyX[i];
-            int relY = wolfY[wolf] - preyY[i];
+            int relX = preyX[i] - wolfX[wolf];
+            int relY = preyY[i] - wolfY[wolf];
             int[] agent = new int[]{relX, relY};
             preys.add(agent);
         }
