@@ -53,6 +53,10 @@ public class LoudWolf implements Wolf {
     }
 
     private int[] moveToCoordinates(int[] coordinates) {
+        if(coordinates == null) {
+            return moveRandom();
+        }
+        
         int[] myMove = {0, 0};
         if(coordinates[0] < 0){
             myMove[0] = -1;
@@ -83,12 +87,6 @@ public class LoudWolf implements Wolf {
         }
         if (behavior==Behavior.FOLLOW_PREY && !seesPrey) {
             keepPreviousBehavior = 0;
-        }
-        if(keepPreviousBehavior>1){
-            if (behavior==Behavior.FOLLOW_HOWL) {
-                System.out.println("");
-                
-            }
         }
         // If it is still executing previous behavior, do not modify anything
         if (keepPreviousBehavior <= 0) {
