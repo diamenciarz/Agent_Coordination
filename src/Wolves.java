@@ -49,7 +49,7 @@ public class Wolves {
             } while (!empty(wolfX[i], wolfY[i]));
             grid[wolfX[i]][wolfY[i]] = i * 2 + 1;
 
-            howlLoudness[i] = r.nextInt(10,21);
+            howlLoudness[i] = r.nextInt(10, 21);
         }
         for (int i = 0; i < numPreys; i++) {
 
@@ -114,26 +114,29 @@ public class Wolves {
 
         }
 
-        // here we ask for the wolves moves; to change the movement style, change the limitMovement variable
+        // here we ask for the wolves moves; to change the movement style, change the
+        // limitMovement variable
         boolean limitMovement = false;
 
         int[][] safetyGrid;
         if (!limitMovement) {
             // Wolves can move diagonally
-            for (int i = 0; i<numWolves; i++) {
+            for (int i = 0; i < numWolves; i++) {
                 safetyGrid = new int[grid.length][grid[0].length];
-                for (int r=0; r<grid.length; r++)
-                    for (int s=0; s<grid[0].length; s++)
+                for (int r = 0; r < grid.length; r++)
+                    for (int s = 0; s < grid[0].length; s++)
                         safetyGrid[r][s] = grid[r][s];
-                
+
                 // Wolf can move and howl
-                int[] wolfPosition = new int[]{wolfX[i], wolfY[i]};
-                WolfAction wolfAction = wolves[i].moveAll(getWolfViewW(i), getWolfViewP(i), makeRelativeHowls(wolfPosition, howls));
+                int[] wolfPosition = new int[] { wolfX[i], wolfY[i] };
+                WolfAction wolfAction = wolves[i].moveAll(getWolfViewW(i), getWolfViewP(i),
+                        makeRelativeHowls(wolfPosition, howls));
                 moves[i] = wolfAction.move;
-                
+
                 // Add howl at the wolf's position
-                if(wolfAction.createdHowl){
-                    int[] howlPosition = {wolfPosition[0] + wolfAction.relativeHowlPosition[0], wolfPosition[1] + wolfAction.relativeHowlPosition[1]};
+                if (wolfAction.createdHowl) {
+                    int[] howlPosition = { wolfPosition[0] + wolfAction.relativeHowlPosition[0],
+                            wolfPosition[1] + wolfAction.relativeHowlPosition[1] };
                     newHowls.add(new Howl(howlPosition, howlLoudness[i]));
                 }
             }
@@ -155,7 +158,7 @@ public class Wolves {
                         moves[i][1] = 0;
                         break;
                     case 1:
-                        // left 
+                        // left
                         moves[i][0] = -1;
                         moves[i][1] = 0;
                         break;
@@ -191,14 +194,17 @@ public class Wolves {
         visuals.update();
         tickcounter++;
 
-        for (int i = 0; i < numPreys; i++) { //add new captured to list
+        for (int i = 0; i < numPreys; i++) { // add new captured to list
             if (capturedList.contains(i))
                 continue;
-            if (captured(preyX[i], preyY[i]))
+            if (captured(preyX[i], preyY[i])) {
                 capturedList.add(i);
+                preyX[i] = 0;
+                preyY[i] = 0;
+            }
         }
 
-        //check whether enough preys have been captured
+        // check whether enough preys have been captured
         if (capturedList.size() >= minCaptured) {
             JOptionPane.showMessageDialog(null, "Wolves won in " + tickcounter + " steps!!");
             System.out.println("Winners");
@@ -206,12 +212,12 @@ public class Wolves {
         }
     }
 
-    private List<Howl> makeRelativeHowls(int[] wolfPosition, List<Howl> howls){
+    private List<Howl> makeRelativeHowls(int[] wolfPosition, List<Howl> howls) {
         List<Howl> relativeHowls = new ArrayList<>();
         for (Howl howl : howls) {
             int deltaX = howl.getPosition()[0] - wolfPosition[0];
             int deltaY = howl.getPosition()[1] - wolfPosition[1];
-            int[] relativePosition = new int[]{deltaX, deltaY};
+            int[] relativePosition = new int[] { deltaX, deltaY };
             relativeHowls.add(new Howl(relativePosition, howl.getLoudness()));
         }
         return relativeHowls;
@@ -219,28 +225,40 @@ public class Wolves {
 
     public boolean captured(int r, int c) {
         int count = 0;
-        if (grid[rowWrap(r, -1)][colWrap(c, -1)] % 2 == 1) count++;
-        if (grid[rowWrap(r, -1)][colWrap(c, 0)] % 2 == 1) count++;
-        if (grid[rowWrap(r, -1)][colWrap(c, 1)] % 2 == 1) count++;
-        if (grid[rowWrap(r, 0)][colWrap(c, -1)] % 2 == 1) count++;
-        if (grid[rowWrap(r, 0)][colWrap(c, 1)] % 2 == 1) count++;
-        if (grid[rowWrap(r, 1)][colWrap(c, -1)] % 2 == 1) count++;
-        if (grid[rowWrap(r, 1)][colWrap(c, 0)] % 2 == 1) count++;
-        if (grid[rowWrap(r, 1)][colWrap(c, 1)] % 2 == 1) count++;
+        if (grid[rowWrap(r, -1)][colWrap(c, -1)] % 2 == 1)
+            count++;
+        if (grid[rowWrap(r, -1)][colWrap(c, 0)] % 2 == 1)
+            count++;
+        if (grid[rowWrap(r, -1)][colWrap(c, 1)] % 2 == 1)
+            count++;
+        if (grid[rowWrap(r, 0)][colWrap(c, -1)] % 2 == 1)
+            count++;
+        if (grid[rowWrap(r, 0)][colWrap(c, 1)] % 2 == 1)
+            count++;
+        if (grid[rowWrap(r, 1)][colWrap(c, -1)] % 2 == 1)
+            count++;
+        if (grid[rowWrap(r, 1)][colWrap(c, 0)] % 2 == 1)
+            count++;
+        if (grid[rowWrap(r, 1)][colWrap(c, 1)] % 2 == 1)
+            count++;
         return (count >= min_surround);
     }
 
     public int rowWrap(int x, int inc) {
         int tmp = x + inc;
-        if (tmp < 0) tmp += rows;
-        if (tmp >= rows) tmp -= rows;
+        if (tmp < 0)
+            tmp += rows;
+        if (tmp >= rows)
+            tmp -= rows;
         return tmp;
     }
 
     public int colWrap(int x, int inc) {
         int tmp = x + inc;
-        if (tmp < 0) tmp += cols;
-        if (tmp >= cols) tmp -= cols;
+        if (tmp < 0)
+            tmp += cols;
+        if (tmp >= cols)
+            tmp -= cols;
         return tmp;
     }
 
@@ -252,11 +270,11 @@ public class Wolves {
         return rows;
     }
 
-    public boolean isWolf(int i, int j) { //Odd numbers are wolves
+    public boolean isWolf(int i, int j) { // Odd numbers are wolves
         return grid[i][j] % 2 == 1;
     }
 
-    public boolean isPrey(int i, int j) { //Even numbers are sheeps
+    public boolean isPrey(int i, int j) { // Even numbers are sheeps
         return grid[i][j] != 0 & grid[i][j] % 2 == 0;
     }
 
@@ -274,7 +292,7 @@ public class Wolves {
             int relX = wolfX[i] - wolfX[wolf];
             int relY = wolfY[i] - wolfY[wolf];
 
-            int[] agent = new int[]{relX, relY};
+            int[] agent = new int[] { relX, relY };
             wolves.add(agent);
         }
 
@@ -289,7 +307,7 @@ public class Wolves {
             }
             int relX = preyX[i] - wolfX[wolf];
             int relY = preyY[i] - wolfY[wolf];
-            int[] agent = new int[]{relX, relY};
+            int[] agent = new int[] { relX, relY };
             preys.add(agent);
         }
 
