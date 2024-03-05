@@ -39,6 +39,7 @@ public class Wolves {
         preyRow = new int[numPreys];
         preyCol = new int[numPreys];
         wolves = new Wolf[numWolves];
+        howlLoudness = new int[numWolves];
 
         for (int i = 0; i < numWolves; i++) {
             do {

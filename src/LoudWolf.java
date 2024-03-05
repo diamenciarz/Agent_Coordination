@@ -35,6 +35,9 @@ public class LoudWolf implements Wolf {
         boolean createHowl = behavior == Behavior.FOLLOW_PREY;
         int[] myMove = null;
         if(behavior == Behavior.FOLLOW_PREY) {
+            if(closestPreyPos==null){
+                System.out.println("Here!");
+            }
             myMove = moveToCoordinates(closestPreyPos);
         }
         else if(behavior == Behavior.FOLLOW_HOWL) {
@@ -73,7 +76,12 @@ public class LoudWolf implements Wolf {
 
     private Behavior selectBehavior(boolean seesPrey, boolean hearsHowl) {
         // If was following 
-
+        if (behavior==Behavior.FOLLOW_HOWL && !hearsHowl) {
+            keepPreviousBehavior = 0;
+        }
+        if (behavior==Behavior.FOLLOW_PREY && !seesPrey) {
+            keepPreviousBehavior = 0;
+        }
         // If it is still executing previous behavior, do not modify anything
         if (keepPreviousBehavior == 0) {
             if (seesPrey) {
