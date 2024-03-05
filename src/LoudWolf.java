@@ -39,6 +39,19 @@ public class LoudWolf implements Wolf {
         return new WolfAction(myMove, createdHowl);
     }
 
+    private WolfAction goToCoordinates(int[] PreyLocation) {
+        return null;
+    }
+
+    public WolfAction moveRandom() {
+        Random r = new Random();
+        int[] mymove = new int[2];
+        // Random value from -1 to 1
+        mymove[0] = r.nextInt(3)-1;
+        mymove[1] = r.nextInt(3)-1;
+        return new WolfAction(mymove, false);
+    }
+
     private Behavior selectBehavior(boolean seesPrey, boolean hearsHowl) {
         // If it is still executing previous behavior, do not modify anything
         if (keepPreviousBehavior == 0) {
