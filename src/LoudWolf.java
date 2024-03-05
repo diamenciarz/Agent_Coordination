@@ -33,6 +33,7 @@ public class LoudWolf implements Wolf {
         }
 
         behavior = selectBehavior(seesPrey, hearsHowl);
+        keepPreviousBehavior--;
         // Act on the selected behavior
 
         int[] myMove = makeMovement(wolvesSight, preysSight);
