@@ -14,6 +14,51 @@ public class WolvesApp extends JFrame {
 	private Wolves game;
 	private JPanel control;
 	private boolean paused = true;
+	
+	public static void main(String[] args) {
+		
+		int width = 50;
+		int height = 50;
+		int squaresize = 15;
+		int delay = 100;
+		
+		//Parameters
+		try {
+			for (int tmp = 0 ; tmp < args.length ; tmp++) {
+				if (args[tmp].compareTo("-width") == 0)
+					width = Integer.parseInt(args[++tmp]);
+				else if (args[tmp].compareTo("-height") == 0)
+					height = Integer.parseInt(args[++tmp]);
+				else if (args[tmp].compareTo("-squaresize") == 0)
+					squaresize = Integer.parseInt(args[++tmp]);
+				else if (args[tmp].compareTo("-delay") == 0)
+					delay = Integer.parseInt(args[++tmp]);
+				else
+					throw new Exception();
+			}
+			if ((39 >= width) || (width >= 501)) throw new Exception();
+			if ((39 >= height) || (height >= 501)) throw new Exception();
+			if ((1 >= squaresize) || (Math.max(width,height)*squaresize >= 1001)) throw new Exception();
+			if (49 >= delay) throw new Exception();
+		}	
+		catch(Exception e) {
+			//e.printStackTrace();
+			System.err.println("");
+			System.out.println("USAGE: java wolves.WolvesApp [-parameter value]");
+			System.err.println("");
+			System.err.println("    Parameters");
+			System.err.println("   ------------");
+			System.err.println("     width (39 < value < 501)");
+			System.err.println("     height (39 < value < 501)");
+			System.err.println("     squaresize (1 < value && max(height,width)*squaresize < 1001)");
+			System.err.println("     delay (49 < value)");
+			System.err.println("");
+			System.exit(-1);
+		}
+		
+		WolvesApp wol = new WolvesApp("Hungry Hungry Wolves", height, width, squaresize);
+		wol.runGoL(delay);
+	}
 
 	public WolvesApp(String title, int numbrows, int numbcols, int squaresize) {
 		
@@ -71,51 +116,6 @@ public class WolvesApp extends JFrame {
 		}
 	}
 
-
-	public static void main(String[] args) {
-		
-		int width = 50;
-		int height = 50;
-		int squaresize = 15;
-		int delay = 100;
-		
-		//Parameters
-		try {
-			for (int tmp = 0 ; tmp < args.length ; tmp++) {
-				if (args[tmp].compareTo("-width") == 0)
-					width = Integer.parseInt(args[++tmp]);
-				else if (args[tmp].compareTo("-height") == 0)
-					height = Integer.parseInt(args[++tmp]);
-				else if (args[tmp].compareTo("-squaresize") == 0)
-					squaresize = Integer.parseInt(args[++tmp]);
-				else if (args[tmp].compareTo("-delay") == 0)
-					delay = Integer.parseInt(args[++tmp]);
-				else
-					throw new Exception();
-			}
-			if ((39 >= width) || (width >= 501)) throw new Exception();
-			if ((39 >= height) || (height >= 501)) throw new Exception();
-			if ((1 >= squaresize) || (Math.max(width,height)*squaresize >= 1001)) throw new Exception();
-			if (49 >= delay) throw new Exception();
-		}	
-		catch(Exception e) {
-			//e.printStackTrace();
-			System.err.println("");
-			System.out.println("USAGE: java wolves.WolvesApp [-parameter value]");
-			System.err.println("");
-			System.err.println("    Parameters");
-			System.err.println("   ------------");
-			System.err.println("     width (39 < value < 501)");
-			System.err.println("     height (39 < value < 501)");
-			System.err.println("     squaresize (1 < value && max(height,width)*squaresize < 1001)");
-			System.err.println("     delay (49 < value)");
-			System.err.println("");
-			System.exit(-1);
-		}
-		
-		WolvesApp wol = new WolvesApp("Hungry Hungry Wolves", height, width, squaresize);
-		wol.runGoL(delay);
-	}
 
 
 }
