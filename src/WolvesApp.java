@@ -10,21 +10,21 @@ import javax.swing.JToggleButton;
 
 @SuppressWarnings("serial")
 public class WolvesApp extends JFrame {
-		
+
 	private Wolves game;
 	private JPanel control;
-	private boolean paused = true;
-	
+	private boolean paused = false;
+
 	public static void main(String[] args) {
-		
+
 		int width = 50;
 		int height = 50;
 		int squaresize = 15;
 		int delay = 100;
-		
-		//Parameters
+
+		// Parameters
 		try {
-			for (int tmp = 0 ; tmp < args.length ; tmp++) {
+			for (int tmp = 0; tmp < args.length; tmp++) {
 				if (args[tmp].compareTo("-width") == 0)
 					width = Integer.parseInt(args[++tmp]);
 				else if (args[tmp].compareTo("-height") == 0)
@@ -36,13 +36,16 @@ public class WolvesApp extends JFrame {
 				else
 					throw new Exception();
 			}
-			if ((39 >= width) || (width >= 501)) throw new Exception();
-			if ((39 >= height) || (height >= 501)) throw new Exception();
-			if ((1 >= squaresize) || (Math.max(width,height)*squaresize >= 1001)) throw new Exception();
-			if (49 >= delay) throw new Exception();
-		}	
-		catch(Exception e) {
-			//e.printStackTrace();
+			if ((39 >= width) || (width >= 501))
+				throw new Exception();
+			if ((39 >= height) || (height >= 501))
+				throw new Exception();
+			if ((1 >= squaresize) || (Math.max(width, height) * squaresize >= 1001))
+				throw new Exception();
+			if (49 >= delay)
+				throw new Exception();
+		} catch (Exception e) {
+			// e.printStackTrace();
 			System.err.println("");
 			System.out.println("USAGE: java wolves.WolvesApp [-parameter value]");
 			System.err.println("");
@@ -55,30 +58,38 @@ public class WolvesApp extends JFrame {
 			System.err.println("");
 			System.exit(-1);
 		}
-		
+
 		WolvesApp wol = new WolvesApp("Hungry Hungry Wolves", height, width, squaresize);
-		wol.runGoL(delay);
+		int turns = wol.runGoL(delay);
+		System.out.println("Game took " + turns + " turns!");
+		System.out.println("Next game!");
+
+		wol = new WolvesApp("Hungry Hungry Wolves", height, width, squaresize);
+		turns = wol.runGoL(delay);
+		System.out.println("Game took " + turns + " turns!");
+		System.exit(0);
 	}
 
 	public WolvesApp(String title, int numbrows, int numbcols, int squaresize) {
-		
+
 		// init window
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		
+
 		// set window location to center of screen
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int left = (screenSize.width - numbcols*squaresize)/ 2;
-		int top  = (screenSize.height - numbrows*squaresize)/ 2;
+		int left = (screenSize.width - numbcols * squaresize) / 2;
+		int top = (screenSize.height - numbrows * squaresize) / 2;
 		setLocation(left, top);
 
-		//Wolves(numbrows, numbcols, numbWolves, numbPrey, visibilityRangePrey, minCapturedToEndGame(leave at 1), numberOfWolvesNeededToCaptureAPrey)
-		game = new Wolves(numbrows, numbcols,3,10,10,3, 2, 10);
-		
-		WolvesUI panel = new WolvesUI(game,squaresize);
+		// Wolves(numbrows, numbcols, numbWolves, numbPrey, visibilityRangePrey,
+		// minCapturedToEndGame(leave at 1), numberOfWolvesNeededToCaptureAPrey)
+		game = new Wolves(numbrows, numbcols, 3, 10, 10, 3, 2, 10);
+
+		WolvesUI panel = new WolvesUI(game, squaresize);
 		add(panel, BorderLayout.CENTER);
-		
+
 		control = new JPanel();
 		final JToggleButton pauseButton = new javax.swing.JToggleButton("Start");
 		pauseButton.addMouseListener(new MouseListener() {
@@ -90,32 +101,48 @@ public class WolvesApp extends JFrame {
 				}
 				togglePaused();
 			}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseExited(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseClicked(MouseEvent e) {}
-			});
+
+			public void mousePressed(MouseEvent e) {
+			}
+
+			public void mouseExited(MouseEvent e) {
+			}
+
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		control.add(pauseButton);
 		add(control, BorderLayout.NORTH);
-		
+
 		pack();
 		this.setVisible(true);
+
 	}
 
 	protected void togglePaused() {
 		paused = !paused;
 	}
 
-	public void runGoL(int delay) {
+	public int runGoL(int delay) {
 		while (true) {
 			try {
 				Thread.sleep(delay);
+			} catch (Exception e) {
+				// Do nothing lol
 			}
-			catch (Exception e) {}
-			if (!paused) game.tick();
+
+			try {
+
+				if (!paused){
+					game.tick();
+				}
+			} catch (GameEnded e) {
+				return e.turns;
+			}
 		}
 	}
-
-
 
 }

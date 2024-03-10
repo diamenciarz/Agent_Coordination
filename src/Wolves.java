@@ -98,7 +98,7 @@ public class Wolves {
         }
     }
 
-    public void tick() {
+    public void tick() throws GameEnded{
         int[][] moves = new int[numWolves][2];
 
         int cntr = 0;
@@ -212,9 +212,8 @@ public class Wolves {
 
         // check whether enough preys have been captured
         if (capturedList.size() >= minCaptured) {
-            JOptionPane.showMessageDialog(null, "Wolves won in " + tickcounter + " steps!!");
-            System.out.println("Winners");
-            System.exit(0);
+            // JOptionPane.showMessageDialog(null, "Wolves won in " + tickcounter + " steps!!");
+            throw new GameEnded((int)tickcounter);
         }
     }
 
