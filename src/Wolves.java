@@ -28,15 +28,17 @@ public class Wolves {
     private static List<Howl> howls = new ArrayList<>();
     private static List<Howl> newHowls = new ArrayList<>();
 
-    public Wolves(int rows, int cols, int numWolves, int numPreys, int visibility, int minCaptured, int min_surround,
-            int defaultLoudness) {
+    private ExperimentSettings settings;
+
+    public Wolves(int rows, int cols, ExperimentSettings settings) {
+        this.settings = settings;        
         this.rows = rows;
         this.cols = cols;
-        this.numWolves = numWolves;
-        this.numPreys = numPreys;
-        this.visibility = visibility;
-        this.minCaptured = minCaptured;
-        this.min_surround = min_surround;
+        this.numWolves = settings.numWolves;
+        this.numPreys = settings.numPreys;
+        this.visibility = settings.visibility;
+        this.minCaptured = settings.minCaptured;
+        this.min_surround = settings.min_surround;
         grid = new int[rows][cols];
         howlLoudness = new int[numWolves];
 
@@ -55,7 +57,7 @@ public class Wolves {
             } while (!empty(wolfX[i], wolfY[i]));
             grid[wolfX[i]][wolfY[i]] = i * 2 + 1;
 
-            howlLoudness[i] = r.nextInt(defaultLoudness - 5, defaultLoudness + 5);
+            howlLoudness[i] = r.nextInt(settings.defaultLoudness - 5, settings.defaultLoudness + 5);
         }
         for (int i = 0; i < numPreys; i++) {
 
@@ -81,12 +83,13 @@ public class Wolves {
     private void initWolves() {
         // You should put your own wolves in the array here!!
         Wolf[] wolvesPool = new Wolf[5];
-        double followPreyChance = 0;
-        wolvesPool[0] = new LoudWolf(followPreyChance);
-        wolvesPool[1] = new LoudWolf(followPreyChance);
-        wolvesPool[2] = new LoudWolf(followPreyChance);
-        wolvesPool[3] = new LoudWolf(followPreyChance);
-        wolvesPool[4] = new LoudWolf(followPreyChance);
+        double followPreyChance = settings.followPreyChance;
+        double followOtherWolvesChance = settings.followOtherWolvesChance;
+        wolvesPool[0] = new LoudWolf(followPreyChance, followOtherWolvesChance);
+        wolvesPool[1] = new LoudWolf(followPreyChance, followOtherWolvesChance);
+        wolvesPool[2] = new LoudWolf(followPreyChance, followOtherWolvesChance);
+        wolvesPool[3] = new LoudWolf(followPreyChance, followOtherWolvesChance);
+        wolvesPool[4] = new LoudWolf(followPreyChance, followOtherWolvesChance);
 
         // Below code will select three random wolves from the pool.
         // Make the pool as large as you want, but not < numWolves

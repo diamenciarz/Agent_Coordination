@@ -19,9 +19,11 @@ public class LoudWolf implements Wolf {
     private int keepRandomDirection = 0;
     private int[] randomDirection = new int[2];
     private double followPreyChance;
+    private double followOtherWolvesChance;
 
-    public LoudWolf(double initialFollowPreyChance) {
+    public LoudWolf(double initialFollowPreyChance, double followOtherWolvesChance) {
         followPreyChance = initialFollowPreyChance;
+        this.followOtherWolvesChance = followOtherWolvesChance;
     }
 
     @Override
@@ -155,7 +157,7 @@ public class LoudWolf implements Wolf {
                     return Behavior.FOLLOW_HOWL;
                 } else {
                     // Sometimes, one wolf will choose to come closer to another wolf
-                    if (r.nextDouble(1) < 0.5) {
+                    if (r.nextDouble(1) < (1 - followOtherWolvesChance)) {
                         keepPreviousBehavior = 10;
                         return Behavior.MOVE_RANDOMLY;
                     } else {

@@ -5,4 +5,12 @@ public class ExperimentSettings {
     public int minCaptured = 3;
     public int min_surround = 2;
     public int defaultLoudness = 10;
+    public double followPreyChance = 0.5;
+    public double followOtherWolvesChance = 0.5;
+
+    @Override
+    public String toString() {
+        return String.format("Settings(defaultLoudness=%d, followPreyChance=%f, followOtherWolvesChance=%f, numWolves=%d, numPreys=%d, visibility=%d, minCaptured=%d, min_surround=%d)"
+        , defaultLoudness, followPreyChance, followOtherWolvesChance, numWolves, numPreys, visibility, minCaptured, min_surround);
+    }
 }

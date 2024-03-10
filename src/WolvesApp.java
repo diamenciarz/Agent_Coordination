@@ -82,8 +82,7 @@ public class WolvesApp extends JFrame {
 
 		// Wolves(numbrows, numbcols, numbWolves, numbPrey, visibilityRangePrey,
 		// minCapturedToEndGame(leave at 1), numberOfWolvesNeededToCaptureAPrey)
-		game = new Wolves(numbrows, numbcols, settings.numWolves, settings.numPreys, settings.visibility, 
-			     			settings.minCaptured, settings.min_surround, settings.defaultLoudness);
+		game = new Wolves(numbrows, numbcols, settings);
 
 		WolvesUI panel = new WolvesUI(game, squaresize);
 		add(panel, BorderLayout.CENTER);

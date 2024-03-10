@@ -16,8 +16,9 @@ public class Experiments {
             WolvesApp wolfApp;
             FileWriter resultWriter = new FileWriter("results.txt");
 
-            resultWriter.append(String.format("Sos %d", 2));
+            resultWriter.append(settings.toString());
             resultWriter.append("\n");
+            resultWriter.append("Game ticks:\n");
             resultWriter.flush();
 
             for (int i = 0; i < gameCount; i++) {
