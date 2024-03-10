@@ -32,7 +32,7 @@ public class LoudWolf implements Wolf {
         Howl closestHowl = getStrongestHowl(howls);
         boolean hearsHowl = closestHowl != null;
 
-        behavior = selectBehavior(seesPrey, hearsHowl, wolvesSight);
+        behavior = selectBehavior(seesPrey, hearsHowl, wolvesSight, closestHowl);
         if (keepPreviousBehavior > 0) {
             keepPreviousBehavior--;
         }
@@ -69,7 +69,7 @@ public class LoudWolf implements Wolf {
     }
 
     public int[] findClosestWolf(List<int[]> wolvesSight) {
-        int[] closestDeltaPosition = null;
+        int[] closestDeltaPosition = new int[]{0,0};
         int closestDistance = 1000000;
 
         for (int[] wolfPos : wolvesSight) {
@@ -121,15 +121,13 @@ public class LoudWolf implements Wolf {
         return randomDirection;
     }
 
-    private Behavior selectBehavior(boolean seesPrey, boolean hearsHowl, List<int[]> wolvesSight) {
+    private Behavior selectBehavior(boolean seesPrey, boolean hearsHowl, List<int[]> wolvesSight, Howl closestHowl) {
         // If was following
         if (behavior == Behavior.FOLLOW_HOWL && !hearsHowl) {
             keepPreviousBehavior = 0;
-            keepRandomDirection = 0;
         }
         if (behavior == Behavior.FOLLOW_PREY && !seesPrey) {
             keepPreviousBehavior = 0;
-            keepRandomDirection = 0;
         }
         // If it is still executing previous behavior, do not modify anything
         if (keepPreviousBehavior <= 0) {
@@ -137,10 +135,12 @@ public class LoudWolf implements Wolf {
                 if (hearsHowl) {
                     // If sees prey and hears howl, can decide to follow either
                     if (r.nextDouble(1) < followPreyChance) {
-                        keepPreviousBehavior = 10;
+                        // Follow prey for at least as much time as it takes another wolf to get here
+                        int[] closestWolfPos = findClosestWolf(wolvesSight);
+                        keepPreviousBehavior = manhattanDistance(closestWolfPos) + 2;
                         return Behavior.FOLLOW_PREY;
                     } else {
-                        keepPreviousBehavior = 10;
+                        keepPreviousBehavior = manhattanDistance(closestHowl.getPosition());
                         return Behavior.FOLLOW_HOWL;
                     }
                 } else {
@@ -151,7 +151,7 @@ public class LoudWolf implements Wolf {
             } else {
                 // If does not see prey and hears howl, set mode to FollowingHowl
                 if (hearsHowl) {
-                    keepPreviousBehavior = 10;
+                    keepPreviousBehavior = manhattanDistance(closestHowl.getPosition());
                     return Behavior.FOLLOW_HOWL;
                 } else {
                     // Sometimes, one wolf will choose to come closer to another wolf

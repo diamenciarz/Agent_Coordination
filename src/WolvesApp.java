@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileWriter;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -58,19 +60,14 @@ public class WolvesApp extends JFrame {
 			System.err.println("");
 			System.exit(-1);
 		}
-
-		WolvesApp wol = new WolvesApp("Hungry Hungry Wolves", height, width, squaresize);
-		int turns = wol.runGoL(delay);
-		System.out.println("Game took " + turns + " turns!");
-		System.out.println("Next game!");
-
-		wol = new WolvesApp("Hungry Hungry Wolves", height, width, squaresize);
-		turns = wol.runGoL(delay);
-		System.out.println("Game took " + turns + " turns!");
-		System.exit(0);
+		ExperimentSettings settings = new ExperimentSettings();
+		WolvesApp wolfApp = new WolvesApp("Hungry Hungry Wolves", height, width, squaresize, settings);
+		int turns = wolfApp.runGoL(delay);
+		wolfApp.dispose();
+		System.out.println("Game ended after "+ turns + " turns");
 	}
 
-	public WolvesApp(String title, int numbrows, int numbcols, int squaresize) {
+	public WolvesApp(String title, int numbrows, int numbcols, int squaresize, ExperimentSettings settings) {
 
 		// init window
 		super(title);
@@ -85,7 +82,8 @@ public class WolvesApp extends JFrame {
 
 		// Wolves(numbrows, numbcols, numbWolves, numbPrey, visibilityRangePrey,
 		// minCapturedToEndGame(leave at 1), numberOfWolvesNeededToCaptureAPrey)
-		game = new Wolves(numbrows, numbcols, 3, 10, 10, 3, 2, 10);
+		game = new Wolves(numbrows, numbcols, settings.numWolves, settings.numPreys, settings.visibility, 
+			     			settings.minCaptured, settings.min_surround, settings.defaultLoudness);
 
 		WolvesUI panel = new WolvesUI(game, squaresize);
 		add(panel, BorderLayout.CENTER);

@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 public class Wolves {
@@ -25,7 +28,8 @@ public class Wolves {
     private static List<Howl> howls = new ArrayList<>();
     private static List<Howl> newHowls = new ArrayList<>();
 
-    public Wolves(int rows, int cols, int numWolves, int numPreys, int visibility, int minCaptured, int min_surround, int defaultLoudness) {
+    public Wolves(int rows, int cols, int numWolves, int numPreys, int visibility, int minCaptured, int min_surround,
+            int defaultLoudness) {
         this.rows = rows;
         this.cols = cols;
         this.numWolves = numWolves;
@@ -51,7 +55,7 @@ public class Wolves {
             } while (!empty(wolfX[i], wolfY[i]));
             grid[wolfX[i]][wolfY[i]] = i * 2 + 1;
 
-            howlLoudness[i] = r.nextInt(defaultLoudness-5, defaultLoudness+5);
+            howlLoudness[i] = r.nextInt(defaultLoudness - 5, defaultLoudness + 5);
         }
         for (int i = 0; i < numPreys; i++) {
 
@@ -98,12 +102,12 @@ public class Wolves {
         }
     }
 
-    public void tick() throws GameEnded{
+    public void tick() throws GameEnded {
         int[][] moves = new int[numWolves][2];
 
         int cntr = 0;
         for (int i = 0; i < numPreys; i++) {
-            if(preyCap[i]) {
+            if (preyCap[i]) {
                 continue;
             }
             int rowMove, colMove;
@@ -212,8 +216,9 @@ public class Wolves {
 
         // check whether enough preys have been captured
         if (capturedList.size() >= minCaptured) {
-            // JOptionPane.showMessageDialog(null, "Wolves won in " + tickcounter + " steps!!");
-            throw new GameEnded((int)tickcounter);
+            // JOptionPane.showMessageDialog(null, "Wolves won in " + tickcounter + "
+            // steps!!");
+            throw new GameEnded((int) tickcounter);
         }
     }
 
