@@ -3,10 +3,32 @@ import java.io.FileWriter;
 public class Experiments {
     public static void main(String[] args) {
         ExperimentSettings settings = new ExperimentSettings();
-        experimentWithSettings(settings, 2);
+        int[] loudnesses = new int[]{10, 20, 30};
+        int[] nrOfWolves = new int[]{3, 5, 10};
+        double[] followPreyChances = new double[]{1, 0.5, 0.2, 0};
+
+        for (double chance : followPreyChances) {
+            for (int loudness : loudnesses) {
+                for (int wolfCount : nrOfWolves) {
+                    settings = new ExperimentSettings(loudness, wolfCount, chance);
+                    
+                    String name = String.format("results/%d_%d_%d_results.txt", loudness, wolfCount, chanceToInt(chance));
+                    experimentWithSettings(settings, 2,name);
+                }   
+            }
+        }
+    }
+    
+    private static int chanceToInt(double chance){
+        if (chance==1) return 1;
+        if (chance==0.5) return 05;
+        if (chance==0.2) return 02;
+        if (chance==0) return 0;
+        return 100;
+
     }
 
-    private static void experimentWithSettings(ExperimentSettings settings, int gameCount) {
+    private static void experimentWithSettings(ExperimentSettings settings, int gameCount, String filename) {
         int width = 50;
         int height = 50;
         int squaresize = 15;
@@ -14,7 +36,7 @@ public class Experiments {
 
         try {
             WolvesApp wolfApp;
-            FileWriter resultWriter = new FileWriter("results.txt");
+            FileWriter resultWriter = new FileWriter(filename);
 
             resultWriter.append(settings.toString());
             resultWriter.append("\n");

@@ -1,2 +1,0 @@
-Settings(defaultLoudness=10, followPreyChance=0.500000, followOtherWolvesChance=0.500000, numWolves=3, numPreys=10, visibility=10, minCaptured=3, min_surround=2)
-36,111
