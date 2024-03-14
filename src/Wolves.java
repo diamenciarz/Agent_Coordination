@@ -19,7 +19,7 @@ public class Wolves {
     private int[] preyY = new int[numPreys];
     private boolean[] preyCap = new boolean[numPreys];
     private Wolf[] wolves = new Wolf[numWolves];
-    private int[] howlLoudness;
+    private int[] howlLoudness; // Alfaness
     private List<Integer> capturedList = new ArrayList<>();
     private Random r = new Random();
     private WolvesUI visuals;

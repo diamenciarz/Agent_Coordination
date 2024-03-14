@@ -18,8 +18,8 @@ public class LoudWolf implements Wolf {
     private int keepPreviousBehavior = 0;
     private int keepRandomDirection = 0;
     private int[] randomDirection = new int[2];
-    private double followPreyChance;
-    private double followOtherWolvesChance;
+    private double followPreyChance; // Beta
+    private double followOtherWolvesChance; // Omega
 
     public LoudWolf(double initialFollowPreyChance, double followOtherWolvesChance) {
         followPreyChance = initialFollowPreyChance;
