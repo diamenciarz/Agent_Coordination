@@ -119,6 +119,7 @@ public class WolvesApp extends JFrame {
 
 	}
 
+
 	protected void togglePaused() {
 		paused = !paused;
 	}

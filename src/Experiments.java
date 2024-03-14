@@ -11,9 +11,9 @@ public class Experiments {
             for (int loudness : loudnesses) {
                 for (int wolfCount : nrOfWolves) {
                     settings = new ExperimentSettings(loudness, wolfCount, chance);
-                    
+
                     String name = String.format("results/%d_%d_%d_results.txt", loudness, wolfCount, chanceToInt(chance));
-                    experimentWithSettings(settings, 2,name);
+                    experimentWithSettings(settings, 5,name);
                 }   
             }
         }
