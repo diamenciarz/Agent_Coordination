@@ -131,6 +131,9 @@ public class LoudWolf implements Wolf {
         if (behavior == Behavior.FOLLOW_PREY && !seesPrey) {
             keepPreviousBehavior = 0;
         }
+        if (behavior == Behavior.MOVE_TO_WOLF && isNextToWolf(wolvesSight)) {
+            keepPreviousBehavior = 0;
+        }
         // If it is still executing previous behavior, do not modify anything
         if (keepPreviousBehavior <= 0) {
             if (seesPrey) {
@@ -170,6 +173,12 @@ public class LoudWolf implements Wolf {
             }
         }
         return behavior;
+    }
+
+    private boolean isNextToWolf(List<int[]> wolvesSight){
+        int[] closestWolfPos = findClosestWolf(wolvesSight);
+        return manhattanDistance(closestWolfPos) <= 1;
+        
     }
 
     @Override
