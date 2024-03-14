@@ -201,7 +201,7 @@ public class LoudWolf implements Wolf {
     }
 
     private int chebyshevDistance(int[] deltaPos) {
-        return Math.max(deltaPos[0], deltaPos[1]);
+        return Math.max(Math.abs(deltaPos[0]), Math.abs(deltaPos[1]));
     }
 
     private int manhattanDistance(int[] deltaPos) {
@@ -225,9 +225,7 @@ public class LoudWolf implements Wolf {
 
     public int getHowlStrength(Howl howlHeard) {
         int[] coordDist = howlHeard.getPosition();
-        int xDist = Math.abs(coordDist[0]);
-        int yDist = Math.abs(coordDist[1]);
-        int dist = Math.max(xDist, yDist);
+        int dist = chebyshevDistance(coordDist);
         int strength = howlHeard.getLoudness() - dist;
         if (strength < 0) {
             strength = 0;
