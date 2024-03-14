@@ -14,6 +14,7 @@ public class Experiments {
 
                     String name = String.format("results/%d_%d_%d_results.txt", loudness, wolfCount, chanceToInt(chance));
                     experimentWithSettings(settings, 5,name);
+                    System.out.println("Done with wolf batch");
                 }   
             }
         }
@@ -53,6 +54,7 @@ public class Experiments {
                     resultWriter.append(",");
                 }
                 resultWriter.flush();
+                System.out.println("finished 1 game");
             }
 
             resultWriter.close();
