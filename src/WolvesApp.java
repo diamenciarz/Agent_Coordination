@@ -115,7 +115,7 @@ public class WolvesApp extends JFrame {
 		add(control, BorderLayout.NORTH);
 
 		pack();
-		this.setVisible(true);
+		this.setVisible(false);
 
 	}
 
