@@ -1,0 +1,3 @@
+Settings(defaultLoudness=10, followPreyChance=0,000000, followOtherWolvesChance=0,500000, numWolves=5, numPreys=20, visibility=10, minCaptured=5, min_surround=2)
+Game ticks:
+14,48,39,87,14,93,68,86,23,37,126,39,80,43,38,55,33,51,35,70,106,17,23,60,85,66,46,47,201,107
