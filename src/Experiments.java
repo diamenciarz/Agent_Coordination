@@ -10,20 +10,11 @@ public class Experiments {
         for (double chance : followPreyChances) {
             for (int loudness : loudnesses) {
                 for (int wolfCount : nrOfWolves) {
-<<<<<<< HEAD
-                    if (chance==1 && loudness==10 && wolfCount == 10) {
-                        settings = new ExperimentSettings(loudness, wolfCount, chance);
-                        
-                        String name = String.format("results/%d_%d_%d_results.txt", loudness, wolfCount, chanceToInt(chance));
-                        experimentWithSettings(settings, 2,name);
-                    }
-=======
                     settings = new ExperimentSettings(loudness, wolfCount, chance);
 
                     String name = String.format("results/%d_%d_%d_results.txt", loudness, wolfCount, chanceToInt(chance));
                     experimentWithSettings(settings, 30,name);
                     System.out.println("\nDone with wolf batch");
->>>>>>> afdb38fb01195d82e067448922d3fc2e29fa9fd9
                 }   
             }
         }
