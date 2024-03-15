@@ -10,10 +10,12 @@ public class Experiments {
         for (double chance : followPreyChances) {
             for (int loudness : loudnesses) {
                 for (int wolfCount : nrOfWolves) {
-                    settings = new ExperimentSettings(loudness, wolfCount, chance);
-                    
-                    String name = String.format("results/%d_%d_%d_results.txt", loudness, wolfCount, chanceToInt(chance));
-                    experimentWithSettings(settings, 2,name);
+                    if (chance==1 && loudness==10 && wolfCount == 10) {
+                        settings = new ExperimentSettings(loudness, wolfCount, chance);
+                        
+                        String name = String.format("results/%d_%d_%d_results.txt", loudness, wolfCount, chanceToInt(chance));
+                        experimentWithSettings(settings, 2,name);
+                    }
                 }   
             }
         }
@@ -37,12 +39,12 @@ public class Experiments {
         try {
             WolvesApp wolfApp;
             FileWriter resultWriter = new FileWriter(filename);
-
+            
             resultWriter.append(settings.toString());
             resultWriter.append("\n");
             resultWriter.append("Game ticks:\n");
             resultWriter.flush();
-
+            
             for (int i = 0; i < gameCount; i++) {
                 wolfApp = new WolvesApp("Hungry Hungry Wolves", height, width, squaresize, settings);
                 int turns = wolfApp.runGoL(delay);

@@ -212,7 +212,7 @@ public class LoudWolf implements Wolf {
     public Howl getStrongestHowl(List<Howl> howlsHeard) {
         Howl strongestHowl = null;
         // With this, the wolves have unlimited hearing range.
-        int strongestHowlStrength = -100;
+        int strongestHowlStrength = 0;
         for (int i = 0; i < howlsHeard.size(); i++) {
             int newHowlStrength = getHowlStrength(howlsHeard.get(i));
             if (newHowlStrength > strongestHowlStrength) {
